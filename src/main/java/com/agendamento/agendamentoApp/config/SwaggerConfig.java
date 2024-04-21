@@ -12,9 +12,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30) // Use OAS_30 for OpenAPI 3.0
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.agendamento.agendamentoApp.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
