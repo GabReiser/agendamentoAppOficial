@@ -19,7 +19,7 @@ public class AlunoController {
     public List<Aluno> getAllAlunos(){
         return alunoRepository.findAll();
     }
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<Aluno>getAlunoById(@PathVariable String id){
         return alunoRepository.findById(id)
                 .map(aluno -> ResponseEntity.ok().body(aluno))
@@ -39,6 +39,13 @@ public class AlunoController {
                     return ResponseEntity.ok().body(updatedAluno);
                 }).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAluno(@PathVariable String id) {
+        return alunoRepository.findById(id)
+                .map(aluno -> {
+                    alunoRepository.delete(aluno);
+                    return ResponseEntity.ok().build();
+                }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
 }
