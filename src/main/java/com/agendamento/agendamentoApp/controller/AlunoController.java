@@ -17,7 +17,6 @@ public class AlunoController {
 
     @Autowired
     AlunoRepository alunoRepository;
-
     @Autowired
     ObjectMapper objectMapper;
 
