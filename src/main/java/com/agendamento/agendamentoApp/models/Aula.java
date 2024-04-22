@@ -19,7 +19,7 @@ public class Aula {
     private String id;
     private String alunoid;
     private String professorId;
-    private LocalDateTime dataInicio;
-    private LocalDateTime dataHoraFim;
+    private String dataInicio;
+    private String dataHoraFim;
     private String description;
 }
