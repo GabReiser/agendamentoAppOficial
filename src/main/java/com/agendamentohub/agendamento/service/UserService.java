@@ -27,11 +27,12 @@ public class UserService {
     /**
      * Cria um novo usuário no MongoDB com dados básicos.
      */
-    public User createUser(String name, String email, String phoneNumber) {
+    public User createUser(String name, String email, String phoneNumber, String password) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
+        user.setPassword(password); // senha crua
 
         // se quiser atribuir role padrão:
         user.setRoles(Set.of(Role.USER));
@@ -42,11 +43,11 @@ public class UserService {
     /**
      * Cria um usuário caso ele não exista; se já existir, retorna o existente.
      */
-    public User createUserIfNotExists(String name, String email, String phoneNumber) {
+    public User createUserIfNotExists(String name, String email, String phoneNumber, String password) {
         return userRepository.findByEmail(email)
                 .orElseGet(() -> {
                     // se não existe, cria
-                    return createUser(name, email, phoneNumber);
+                    return createUser(name, email, phoneNumber, password);
                 });
     }
 
