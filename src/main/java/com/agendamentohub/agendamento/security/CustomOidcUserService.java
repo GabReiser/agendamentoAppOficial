@@ -26,12 +26,13 @@ public class CustomOidcUserService implements org.springframework.security.oauth
         // 2. Extrai dados do usuário
         String email = oidcUser.getEmail();      // do token ID (scope=openid, email)
         String name = oidcUser.getFullName();    // full name (depende das claims)
+        String phoneNumber = oidcUser.getPhoneNumber();
         // Se quiser phoneNumber, nem sempre vem disponível. Depende dos scopes concedidos.
 
         // 3. Cria se não existir
         //    - Você já tem um método `createUserIfNotExists(name, email, phoneNumber?)` no UserService
         if (email != null) {
-            User user = userService.createUserIfNotExists(name, email, null);
+            User user = userService.createUserIfNotExists(name, email,phoneNumber , null);
             // opcional: se quiser atualizar algo no user, roles, etc.
         }
 
