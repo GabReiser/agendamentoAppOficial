@@ -2,6 +2,7 @@ package com.agendamentohub.agendamento.controller;
 
 import com.agendamentohub.agendamento.dto.LoginDTO;
 import com.agendamentohub.agendamento.dto.RegisterDTO;
+import com.agendamentohub.agendamento.model.Role;
 import com.agendamentohub.agendamento.model.User;
 import com.agendamentohub.agendamento.service.JwtService;
 import com.agendamentohub.agendamento.service.UserService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/auth")
@@ -45,7 +47,7 @@ public class AuthController {
                 registerDto.getName(),
                 registerDto.getEmail(),
                 registerDto.getPhoneNumber(),
-                registerDto.getPassword() // passamos a senha crua aqui
+                passwordEncoder.encode(registerDto.getPassword()) // passamos a senha crua aqui
         );
         return ResponseEntity.ok("Usuário registrado com sucesso!");
     }
@@ -67,7 +69,7 @@ public class AuthController {
         }
 
         // Gera o token JWT
-        String jwt = jwtService.generateToken(user.getEmail());
+        String jwt = jwtService.generateToken(user.getEmail(), Set.of(Role.USER));
 
         // Retorna o token em JSON
         return ResponseEntity.ok().body("{\"token\":\"" + jwt + "\"}");
